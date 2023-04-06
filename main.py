@@ -30,7 +30,7 @@ def click_event(event, x, y, flags, params):
 
 model = "./model/sam_vit_h_4b8939.pth"
 
-img = cv2.imread("./dog.jpg")
+img = cv2.imread("./images//dog.jpg")
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 input_point = []
