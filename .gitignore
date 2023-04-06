@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 model/*
+!model/.gitkeep 
 # C extensions
 *.so
 
