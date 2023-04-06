@@ -1,3 +1,5 @@
+import time
+
 import cv2
 import numpy as np
 from segment_anything import sam_model_registry, SamPredictor
@@ -28,7 +30,7 @@ def click_event(event, x, y, flags, params):
       input_point.append(np.array([[x,y]]))
       print(f'({x},{y})')
 
-model = "./model/sam_vit_h_4b8939.pth"
+model = "./model/sam_vit_l_0b3195.pth"
 
 img = cv2.imread("./images//dog.jpg")
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -46,8 +48,11 @@ while input_point == []:
       break
 cv2.destroyAllWindows()
 
-sam = sam_model_registry["default"](checkpoint=model)
+sam = sam_model_registry["vit_l"](checkpoint=model)
+
+sam.to("cuda")
 predictor = SamPredictor(sam)
+
 predictor.set_image(img)
 
 masks, scores, logits = predictor.predict(
@@ -57,6 +62,7 @@ masks, scores, logits = predictor.predict(
 )
 
 mask = sorted(zip(masks, scores), key=lambda x: x[1])
+
 
 plt.figure(figsize=(10,10))
 plt.imshow(img)

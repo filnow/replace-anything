@@ -4,5 +4,7 @@ numpy==1.22.4
 opencv_python==4.6.0.66
 Pillow==9.5.0
 requests==2.25.1
-segment_anything.egg==info
-torch==1.11.0
+segment-anything==1.0
+torchvision==0.15.1
+torch==2.0.0+cu117
+transformers==4.27.4

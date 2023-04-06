@@ -3,6 +3,7 @@ import requests
 import torch
 from io import BytesIO
 import cv2
+from PIL import Image
 
 from diffusers import StableDiffusionInpaintPipeline
 
@@ -23,7 +24,7 @@ pipe = StableDiffusionInpaintPipeline.from_pretrained(
 )
 pipe = pipe.to("cuda")
 
-prompt = "Face of a yellow cat, high resolution, sitting on a park bench"
+prompt = "A yellow cat sitting on a park bench"
 image = pipe(prompt=prompt, image=init_image, mask_image=mask_image).images[0]
 
-cv2.imwrite("out.png", image)
+Image.Image.show(image)
