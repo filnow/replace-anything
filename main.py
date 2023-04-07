@@ -1,5 +1,5 @@
 import time
-
+import torch
 import cv2
 import numpy as np
 from segment_anything import sam_model_registry, SamPredictor
@@ -30,6 +30,8 @@ def click_event(event, x, y, flags, params):
       input_point.append(np.array([[x,y]]))
       print(f'({x},{y})')
 
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
 model = "./model/sam_vit_l_0b3195.pth"
 
 img = cv2.imread("./images//dog.jpg")
@@ -50,7 +52,7 @@ cv2.destroyAllWindows()
 
 sam = sam_model_registry["vit_l"](checkpoint=model)
 
-sam.to("cuda")
+sam.to(device=device)
 predictor = SamPredictor(sam)
 
 predictor.set_image(img)
