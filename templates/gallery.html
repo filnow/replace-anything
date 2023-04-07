@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% for image in images %}
+    <div class="col-md-4 mb-4">
+      <a href="{{ url_for('image', filename=image) }}">
+        <div class="image-wrapper">
+          <img src="{{ image }}" class="img-fluid">
+        </div>
+      </a>
+    </div>
+    {% if loop.index % 3 == 0 %}
+  </div>
+  <div class="row">
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

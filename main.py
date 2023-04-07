@@ -34,7 +34,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 model = "./model/sam_vit_l_0b3195.pth"
 
-img = cv2.imread("./images//dog.jpg")
+img = cv2.imread("./images/dog.jpg")
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 input_point = []

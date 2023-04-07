@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+        <img id="image" src="{{ image_path }}" class="img-fluid" alt="{{ caption }}">
+    </div>
+    <div class="col-md-4">
+      <h2>{{ caption }}</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus magna et nisi vehicula, vel volutpat mauris varius. Aenean gravida est id mauris malesuada euismod. Nulla tincidunt malesuada mi quis rhoncus. Vivamus nec lacus sed risus efficitur hendrerit a a ex. Praesent eget dapibus arcu. Nam non ex metus. Sed eget ornare sapien. Suspendisse auctor ac massa vel interdum.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
