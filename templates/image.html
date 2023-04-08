@@ -5,6 +5,12 @@
   <div class="row">
     <div class="col-md-8">
         <img id="image" src="{{ image_path }}" class="img-fluid" alt="{{ caption }}">
+        <form id="prompt-form">
+          <label for="prompt">Prompt:</label><br>
+          <textarea id="prompt-input" name="prompt" rows="4" cols="50"></textarea>
+          <br><br>
+          <input type="button" value="Submit" onclick="submitPrompt()">
+        </form>
     </div>
     <div class="col-md-4">
       <h2>{{ caption }}</h2>

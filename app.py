@@ -39,14 +39,20 @@ def get_coords():
     seg.get_mask(np.array([[x, y]]))
     mask = cv2.cvtColor(seg.mask_to_show(), cv2.COLOR_BGR2RGB)
 
-    cv2.imwrite('./output/image.jpg', mask)
-
     pil_image = Image.fromarray(mask).resize((display_width, display_height))
     buffered = io.BytesIO()
     pil_image.save(buffered, format="JPEG")
     buffered.seek(0)
+
     return send_file(buffered, mimetype="image/jpeg")
 
+@app.route("/process_text", methods=["POST"])
+def process_text():
+    text = request.form.get("prompt").lower()
+
+    #TODO: stable diffusion here with this prompt
+    
+    return text
 
 if __name__ == '__main__':
     app.run(debug=True)
