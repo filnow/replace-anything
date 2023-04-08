@@ -1,7 +1,8 @@
-from flask import Flask, render_template, send_from_directory, request
+from flask import Flask, render_template, send_from_directory, send_file, request
 from sam import SAM
 import cv2
-import matplotlib.pyplot as plt
+import io
+from PIL import Image
 import numpy as np
 import glob
 
@@ -36,8 +37,15 @@ def get_coords():
 
     seg.set_image(image)
     seg.get_mask(np.array([[x, y]]))
-    mask = seg.mask_to_show()
+    mask = cv2.cvtColor(seg.mask_to_show(), cv2.COLOR_BGR2RGB)
+
     cv2.imwrite('./output/image.jpg', mask)
+
+    pil_image = Image.fromarray(mask).resize((display_width, display_height))
+    buffered = io.BytesIO()
+    pil_image.save(buffered, format="JPEG")
+    buffered.seek(0)
+    return send_file(buffered, mimetype="image/jpeg")
 
 
 if __name__ == '__main__':

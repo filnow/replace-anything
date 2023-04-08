@@ -16,9 +16,19 @@ window.onload = function() {
         },
         body: JSON.stringify(data)
         }).then(function(response) {
-        return response.text();
-        }).then(function(text) {
-        console.log(text);
+            return response.arrayBuffer();
+        }).then(function(buffer) {
+            // Create a new blob object from the buffer data
+            var blob = new Blob([buffer], { type: 'image/jpeg' });
+        
+            // Create an image element and set its src attribute to the blob data URL
+            var img = new Image();
+            img.src = URL.createObjectURL(blob);
+        
+            // Replace the original image with the modified image
+            var oldImg = document.getElementById('image');
+            oldImg.parentNode.replaceChild(img, oldImg);
         });
+        
     }
   }
