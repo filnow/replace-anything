@@ -8,9 +8,9 @@ from segment_anything import sam_model_registry, SamPredictor
 class SAM:
     def __init__(self) -> None:
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.model = "./model/sam_vit_l_0b3195.pth"
+        self.model = "./model/sam_vit_b_01ec64.pth"
         
-        self.sam = sam_model_registry["vit_l"](checkpoint=self.model)
+        self.sam = sam_model_registry["vit_b"](checkpoint=self.model)
         self.sam.to(device=self.device)
         self.predictor = SamPredictor(self.sam)
         
@@ -32,11 +32,11 @@ class SAM:
             multimask_output=True,
         )
 
-        self.mask = sorted(zip(masks, scores), key=lambda x: x[1])[-1][0]
-    
+        self.mask = sorted(zip(masks, scores), key=lambda x: x[1])[-1][0].astype(np.uint8)
+        torch.cuda.empty_cache()
+
     def mask_for_sd(self) -> np.ndarray:
-        h, w = self.mask.shape[-2:]
-        return self.mask.reshape(h, w, 1) * np.ones(3).reshape(1, 1, -1)
+        return self.mask*255
     
     def mask_to_show(self) -> np.ndarray:
         masked_img = self.img.copy()
