@@ -11,13 +11,12 @@ def show_mask(mask, ax, random_color=False):
         color = np.array([30/255, 144/255, 255/255, 0.6])
     h, w = mask.shape[-2:]
     mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1)
-    print(mask_image.shape)
-    print(mask_image.dtype)
     ax.imshow(mask_image)
 
 #NOTE: mask for inpaiting stable diffusion
 def mask_for_sd(mask):
     h, w = mask.shape[-2:]
+
     return mask.reshape(h, w, 1) * np.ones(3).reshape(1, 1, -1)
     
 def show_points(coords, labels, ax, marker_size=375):
@@ -31,12 +30,22 @@ def click_event(event, x, y, flags, params):
       input_point.append(np.array([[x,y]]))
       print(f'({x},{y})')
 
+def mask_toshow(img, mask, ax):
+    # img = np.ones((mask.shape[0], mask.shape[1], 3))
+    masked_img = img.copy()
+    color_mask = np.random.random((1, 3)).tolist()[0]
+    for i in range(3):
+        masked_img[:,:,i] = np.where(mask == 1, masked_img[:,:,i] * (1 - 0.35) + 0.35 * color_mask[i] * 255, masked_img[:,:,i])
+    cv2.imshow('Masked Image', masked_img)
+    cv2.waitKey(0)
+    ax.imshow(np.dstack((img, mask*0.35)))
+
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 model = "./model/sam_vit_l_0b3195.pth"
 
-img = cv2.imread("./static/images/dog.jpg")
-img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img = cv2.imread("./static/images/AdobeStock_94274587_welsh_corgi_pembroke_CD.jpg")
+#img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 input_point = []
 input_label = np.array([1])
@@ -66,12 +75,12 @@ masks, scores, logits = predictor.predict(
 
 mask = sorted(zip(masks, scores), key=lambda x: x[1])
 
-mask_image = np.array(mask[-1][0]).reshape
-
 print(np.array(mask[-1][0]).shape)
 plt.figure(figsize=(10,10))
 plt.imshow(img)
-show_mask(np.array(mask[-1][0]), plt.gca())
-show_points(input_point[0], input_label, plt.gca())
+#show_mask(np.array(mask[-1][0]), plt.gca())
+#show_points(input_point[0], input_label, plt.gca())
+#print(mask_for_sd(np.array(mask[-1][0])).shape)
+mask_toshow(img, np.array(mask[-1][0]), plt.gca())
 plt.axis('off')
 plt.show()  
