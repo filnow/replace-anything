@@ -12,6 +12,6 @@ function submitPrompt() {
     .then(function (processedText) {
       console.log(processedText);
       // Do something with the processed text, like display it on the page
-      promptInput.value = "";
+      promptText = "";
     });
 }
