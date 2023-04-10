@@ -6,11 +6,11 @@ from segment_anything import sam_model_registry, SamPredictor
 
 
 class SAM:
-    def __init__(self) -> None:
+    def __init__(self, model: str) -> None:
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.model = "./model/sam_vit_l_0b3195.pth"
+        self.model = "./model/sam_" + model + ".pth"
         
-        self.sam = sam_model_registry["vit_l"](checkpoint=self.model)
+        self.sam = sam_model_registry[model](checkpoint=self.model)
         self.sam.to(device=self.device)
         self.predictor = SamPredictor(self.sam)
         

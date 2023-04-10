@@ -1,14 +1,24 @@
 import cv2
 import io
 import glob
+import argparse
 
 from flask import Flask, render_template, send_from_directory, send_file, request
 from sam import SAM
 from diffusion import SD
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--model', 
+                    help='The model to use', 
+                    choices=['vit_l', 'vit_b', 'vit_h'], 
+                    required=True)
+args = parser.parse_args()
+
+print("Using model: ", args.model)
+
 app = Flask(__name__, static_folder='static')
-seg = SAM()
+seg = SAM(model=args.model)
 
 @app.route('/')
 def gallery():

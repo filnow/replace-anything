@@ -34,6 +34,13 @@ For example, to download the Large model, you would run:
 ./setup.sh vit_l
 
 ```
+To start a web app you need to run this command with proper model argument.
+
+```bash
+
+python3 app.py --model={MODEL_NAME}
+
+```
 
 After first prompt the Stable Diffusion will download automatically (about 10GB) and then you good to go.
 
