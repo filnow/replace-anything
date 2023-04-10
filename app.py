@@ -17,8 +17,7 @@ def gallery():
 
 @app.route('/images/<path:filename>')
 def image(filename):
-    caption = filename.split('/')[-1]
-    return render_template('image.html', image_path='/'+filename, caption=caption)
+    return render_template('image.html', image_path='/'+filename)
 
 @app.route('/static/images/<path:filename>')
 def serve_image(filename):
