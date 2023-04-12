@@ -14,8 +14,7 @@ parser.add_argument('--model',
                     choices=['vit_l', 'vit_b', 'vit_h'], 
                     required=True)
 args = parser.parse_args()
-
-print("Using model: ", args.model)
+print(f"Using model: {args.model}\n")
 
 app = Flask(__name__, static_folder='static')
 seg = SAM(model=args.model)
@@ -58,18 +57,19 @@ def get_coords():
 
 @app.route("/process_text", methods=["POST"])
 def process_text():
-    sd = SD()
-
-    image = cv2.resize(seg.img, (512,512))
-    prompt = request.form.get("prompt").lower()
+    #NOTE: to make inpatinting work, you need to uncomment the following lines, a change mask to generated_img in imencode function
+    # sd = SD()
+    # image = cv2.resize(seg.img, (512,512))
+    # prompt = request.form.get("prompt").lower()
     mask = seg.mask_for_sd()
+    #generated_img = sd.generate_for_mask(image, mask, prompt)
 
-    generated_img = sd.generate_for_mask(image, mask, prompt)
+    _, buffer = cv2.imencode('.jpg', mask)
+    buffered = io.BytesIO(buffer)
+    buffered.seek(0)
 
-    #TODO: display image on website
-    #cv2.imwrite("generated.jpg", np.array(generated_img))
+    return send_file(buffered, mimetype="image/jpeg")
 
-    return "Done"
 
 if __name__ == '__main__':
     app.run(debug=True)
