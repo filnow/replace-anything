@@ -46,7 +46,7 @@ def get_coords():
 
     seg.set_image(image)
     seg.get_mask([[x, y]])
-
+    cv2.imwrite('./masks' + data['image_path'].split('/')[-1], seg.mask_to_show())
     mask = cv2.resize(seg.mask_to_show(), (display_width, display_height))
 
     _, buffer = cv2.imencode('.jpg', mask)
@@ -70,6 +70,9 @@ def process_text():
 
     return send_file(buffered, mimetype="image/jpeg")
 
+@app.route("/preview")
+def previw():
+    return render_template("preview.html", gif_path="/static/ra-preview.gif")
 
 if __name__ == '__main__':
     app.run(debug=True)

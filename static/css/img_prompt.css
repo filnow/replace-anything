@@ -1,0 +1,14 @@
+textarea {
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 20px; /* increase font size to 20px */
+    padding: 10px;
+    text-align: center; /* center text inside the textarea */
+  }
+
+.img-fluid {
+    display: block;
+    margin: 0 auto;
+}

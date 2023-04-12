@@ -2,9 +2,10 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>My Site</title>
+  <title>replace-anything</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/img_prompt.css') }}">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -13,7 +14,7 @@
 </head>
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">My Site</a>
+    <a class="navbar-brand" href="/">replace-anything</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,8 +23,8 @@
         <li class="nav-item active">
           <a class="nav-link" href="/">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/gallery">Gallery</a>
+        <li class="nav-item active">
+          <a class="nav-link" href="/preview">Preview</a>
         </li>
       </ul>
     </div>
