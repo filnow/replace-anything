@@ -41,8 +41,6 @@ class SAM:
     def mask_to_show(self) -> np.ndarray:
         masked_img = self.img.copy()
         color_mask = np.random.random((1, 3)).tolist()[0]
-        #NOTE: red-ish mask
-        #color_mask = [0.6982630039283296, 0.41386857547374534, 0.9510421807350423]
 
         for i in range(3):
             masked_img[:,:,i] = np.where(self.mask == 1, 

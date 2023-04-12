@@ -1,7 +1,5 @@
 # About
 
-Project for the [conference](https://amu.edu.pl/wiadomosci/events/dzien-kol-naukowych) of scientific circles held at UAM.
-
 The website allows segmentation of objects by clicking on the desired thing in the photo and replacing it with any other object through the appropriate prompt using inpainting.
 
 Segmentation is done using [SAM](https://github.com/facebookresearch/segment-anything), inpating is done using [Diffusers](https://github.com/huggingface/diffusers).
@@ -48,6 +46,6 @@ Despite our limitations in hardware it takes abour 2s for a segmentation and 6s 
 
 # Results
 
-* TODO: add results
+* TODO: add results, add arrow.svg as sumbit button
 
 

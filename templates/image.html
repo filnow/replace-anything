@@ -1,17 +1,20 @@
+
 {% extends "base.html" %}
 
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
-        <img id="image" src="{{ image_path }}" class="img-fluid" alt="{{ caption }}">
-        <form id="prompt-form">
-          <label for="prompt">Prompt:</label><br>
-          <textarea id="prompt-input" name="prompt" rows="4" cols="50"></textarea>
-          <br><br>
+    <div class="col-md-12">
+      <img id="image" src="{{ image_path }}" class="img-fluid" alt="{{ caption }}">
+      <form id="prompt-form" class="row">
+        <div class="col-md-9">
+          <textarea id="prompt-input" name="prompt" rows="1" cols="69" placeholder="Your prompt..."></textarea>
+        </div>
+        <div class="col-md-3">
           <input type="button" value="Submit" onclick="submitPrompt()">
-        </form>
+        </div>
+      </form>
     </div>
   </div>
 </div>
-{% endblock %}
+{% endblock %} 

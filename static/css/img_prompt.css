@@ -1,14 +1,25 @@
 textarea {
-    background-color: #1a1a1a;
-    border: none;
     border-radius: 10px;
-    color: #ffffff;
     font-size: 20px; /* increase font size to 20px */
     padding: 10px;
-    text-align: center; /* center text inside the textarea */
+    margin-top: 5%;
+    resize: none;
   }
 
-.img-fluid {
-    display: block;
-    margin: 0 auto;
+.col-md-3 {
+  margin-top: 4.5%;
+}
+
+#prompt-form {
+  margin-left: 8%;
+}
+
+.btn-arrow {
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.5rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }

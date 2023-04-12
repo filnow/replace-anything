@@ -18,10 +18,7 @@ window.onload = function() {
             body: JSON.stringify(data)
         });
         var buffer = await response.arrayBuffer();
-
-        // Create a new blob object from the buffer data
         var blob = new Blob([buffer], { type: 'image/jpeg' });
-        // Replace src with the new one
         e.target.src = URL.createObjectURL(blob);
     }
 }
