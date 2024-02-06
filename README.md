@@ -39,6 +39,13 @@ To start a web app you need to run this command with proper model argument.
 python3 app.py --model={MODEL_NAME}
 
 ```
+To use inpainting pass a flag before starting a web app.
+
+```bash
+
+python3 app.py --model={MODEL_NAME} --inpainting
+
+```
 
 After first prompt the Stable Diffusion will download automatically (about 10GB) and then you good to go.
 
