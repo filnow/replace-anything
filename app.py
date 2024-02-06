@@ -13,8 +13,13 @@ parser.add_argument('--model',
                     help='The model to use', 
                     choices=['vit_l', 'vit_b', 'vit_h'], 
                     required=True)
+parser.add_argument('--inpainting', 
+                    help='Use inpainting', 
+                    action='store_true')
 args = parser.parse_args()
+
 print(f"Using model: {args.model}\n")
+print(f"Using inpainting: {args.inpainting}\n")
 
 app = Flask(__name__, static_folder='static')
 seg = SAM(model=args.model)
@@ -48,7 +53,6 @@ def get_coords():
     seg.get_mask([[x, y]])
   
     mask = cv2.resize(seg.mask_to_show(), (display_width, display_height))
-
     _, buffer = cv2.imencode('.jpg', mask)
     buffered = io.BytesIO(buffer)
     buffered.seek(0)
@@ -57,14 +61,25 @@ def get_coords():
 
 @app.route("/process_text", methods=["POST"])
 def process_text():
-    #NOTE: to make inpatinting work, you need to uncomment the following lines, a change mask to generated_img in imencode function
-    # sd = SD()
-    # image = cv2.resize(seg.img, (512,512))
-    # prompt = request.form.get("prompt").lower()
-    mask = seg.mask_for_sd()
-    #generated_img = sd.generate_for_mask(image, mask, prompt)
+    
+    data = request.get_json()
 
-    _, buffer = cv2.imencode('.jpg', mask)
+    if args.inpainting and seg.img != None:
+        sd = SD()
+        image = cv2.resize(seg.img, (512,512))
+        prompt = request.form.get("prompt").lower()
+        mask = seg.mask_for_sd()
+        generated_img = sd.generate_for_mask(image, mask, prompt)
+
+        _, buffer = cv2.imencode('.jpg', generated_img)
+        buffered = io.BytesIO(buffer)
+        buffered.seek(0)
+
+        return send_file(buffered, mimetype="image/jpeg")
+  
+    image = cv2.imread('./static/images/' + data['image_path'].split('/')[-1])
+
+    _, buffer = cv2.imencode('.jpg', image)
     buffered = io.BytesIO(buffer)
     buffered.seek(0)
 

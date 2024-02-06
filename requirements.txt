@@ -1,8 +1,8 @@
-diffusers==0.14.0
-Flask==2.2.2
-numpy==1.22.4
-opencv_python==4.6.0.66
-Pillow==9.5.0
-requests==2.25.1
+diffusers==0.26.2
+Flask==3.0.2
+numpy==1.26.4
+opencv_python==4.9.0.80
+pillow==10.2.0
+requests==2.31.0
 segment_anything==1.0
-torch==2.0.0
+

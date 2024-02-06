@@ -1,17 +1,12 @@
 import numpy as np
-import torch
 from typing import List, Tuple
-
 from segment_anything import sam_model_registry, SamPredictor
-
 
 class SAM:
     def __init__(self, model: str) -> None:
-        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.model = "./model/sam_" + model + ".pth"
         
         self.sam = sam_model_registry[model](checkpoint=self.model)
-        self.sam.to(device=self.device)
         self.predictor = SamPredictor(self.sam)
         
         self.input_point = np.empty((0, 2))
@@ -33,7 +28,6 @@ class SAM:
         )
 
         self.mask = sorted(zip(masks, scores), key=lambda x: x[1])[-1][0].astype(np.uint8)
-        torch.cuda.empty_cache()
 
     def mask_for_sd(self) -> np.ndarray:
         return self.mask*255
